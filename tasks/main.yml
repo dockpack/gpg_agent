@@ -28,6 +28,18 @@
     dest: /etc/skel/.gnupg/
     mode: 0600
 
+- name: Check if /etc/skel/.bash_profile exists
+  stat:
+    path: /etc/skel/.bash_profile
+  register: bash_profile
+
+- name: Create .bash_profile
+  when: not bash_profile.stat.exists
+  copy:
+    content: ''
+    dest: /etc/skel/.bash_profile
+    mode: 0644
+
 - name: Configure environment for GPG agent
   lineinfile:
     path: /etc/skel/.bash_profile
