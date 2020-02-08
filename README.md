@@ -1,3 +1,6 @@
+[![Galaxy](https://img.shields.io/badge/galaxy-dockpack.gpg__agent-blue.svg?style=flat)](https://galaxy.ansible.com/dockpack/gpg_agent)
+![Build Status](https://api.travis-ci.org/dockpack/gpg_agent.svg)
+
 Install GPG with Ansible
 ========================
 
