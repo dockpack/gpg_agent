@@ -1,0 +1,4 @@
+# these python extensions are required for testing
+tox
+molecule
+docker
