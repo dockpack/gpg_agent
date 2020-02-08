@@ -1,0 +1,52 @@
+---
+
+- name: Resolve platform specific vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_release }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "{{ ansible_os_family }}.yml"
+      errors: 'ignore'
+      paths:
+        - '{{ role_path }}/vars'
+
+- name: Install GPG package
+  package:
+    name: "{{ gpg_package| default(['gpg']) }}"
+    state: present
+
+- name: Create GPG agent config directory
+  file:
+    path: /etc/skel/.gnupg
+    state: directory
+    mode: 0700
+
+- name: Install GPG agent config file
+  template:
+    src: gpg-agent.conf
+    dest: /etc/skel/.gnupg/
+    mode: 0600
+
+- name: Configure environment for GPG agent
+  lineinfile:
+    path: /etc/skel/.bash_profile
+    regexp: '^export GPG_TTY.*'
+    line: 'export GPG_TTY=$(tty)'
+    state: present
+
+- name: Configure bash_profile for GPG agent
+  lineinfile:
+    path: /etc/skel/.bash_profile
+    regexp: '^gpg-agent --daemon.*'
+    line: 'gpg-agent --daemon --write-env-file "${HOME}/.gpg-agent-info"'
+    state: present
+
+- name: Configure bashrc for GPG agent
+  blockinfile:
+    path: /etc/skel/.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      if [ -f "${HOME}/.gpg-agent-info" ]; then
+                 . "${HOME}/.gpg-agent-info"
+      fi

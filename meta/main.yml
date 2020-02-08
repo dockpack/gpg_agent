@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Bas Meijer
+  description: Install GPG with agent configuration
+  company: dockpack
+
+  license: MIT
+
+  min_ansible_version: 2.2.1
+
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - system
+    - security
+
+dependencies: []
