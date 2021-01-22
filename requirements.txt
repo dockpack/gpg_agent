@@ -1,4 +1,10 @@
-# these python extensions are required for testing
+# these python extensions are for testing
 tox
+sh==1.12.14
 molecule
-docker
+molecule-docker
+yamllint
+ansible-lint
+docker==4.2.2
+anyconfig>=0.10.0 # not directly required, pinned by Snyk to avoid a vulnerability
+
