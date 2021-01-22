@@ -14,6 +14,7 @@
 - name: Install GPG package
   package:
     name: "{{ gpg_package| default(['gpg']) }}"
+    update_cache: true
     state: present
 
 - name: Create GPG agent config directory
