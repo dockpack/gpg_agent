@@ -1,4 +1,5 @@
 ---
+# Standards: 0.2
 galaxy_info:
   author: Bas Meijer
   description: Install GPG with agent configuration
@@ -20,3 +21,4 @@ galaxy_info:
     - security
 
 dependencies: []
+...

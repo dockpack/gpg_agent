@@ -2,3 +2,4 @@
 
 default_cache_ttl: '86400'
 pinentry_program: '/usr/bin/pinentry-curses'
+...
