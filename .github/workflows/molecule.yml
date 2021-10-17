@@ -16,7 +16,7 @@ jobs:
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: robertdebock/molecule-action@2.6.8
+        uses: robertdebock/molecule-action@2.7.2
         with:
           command: lint
   test:
@@ -31,7 +31,8 @@ jobs:
         with:
           path: "${{ github.repository }}"
       - name: molecule
-        uses: robertdebock/molecule-action@2.6.8
+        uses: robertdebock/molecule-action@2.7.2
         with:
           image: ${{ matrix.config.image }}
           tag: ${{ matrix.config.tag }}
+...

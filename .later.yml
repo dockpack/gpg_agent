@@ -14,6 +14,5 @@ rules:
   exclude_filter:
     - ANSIBLE0015
   exclude_files:
-    - molecule/
-    - requirements.txt
+    - molecule/default/tests/
 ...
