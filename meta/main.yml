@@ -2,8 +2,10 @@
 # Standards: 0.2
 galaxy_info:
   author: Bas Meijer
-  description: Install GPG with agent configuration
   company: dockpack
+  description: Install GPG with agent configuration
+  namespace: dockpack
+  role_name: gpg_agent
 
   license: MIT
 
