@@ -1,4 +1,5 @@
 ---
+# Standards: 0.2
 # This is an example playbook to execute goss tests.
 # Tests need distributed to the appropriate ansible host/groups
 # prior to execution by `goss validate`.
@@ -59,3 +60,4 @@
         msg: "Goss failed to validate"
       when: item.rc != 0
       with_items: "{{ test_results.results }}"
+...

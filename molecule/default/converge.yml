@@ -1,5 +1,7 @@
 ---
+# Standards: 0.2
 - name: Converge
   hosts: all
   roles:
     - role: gpg_agent
+...
