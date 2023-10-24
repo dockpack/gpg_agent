@@ -19,7 +19,7 @@
     goss_format: tap
   tasks:
     - name: Download and install Goss
-      get_url:
+      ansible.builtin.get_url:
         url: "{{ goss_url }}"
         dest: "{{ goss_dst }}"
         sha256sum: "{{ goss_sha256sum }}"
@@ -29,7 +29,7 @@
       retries: 3
 
     - name: Copy Goss tests to remote
-      copy:
+      ansible.builtin.copy:
         src: "{{ item }}"
         dest: "{{ goss_test_directory }}/{{ item | basename }}"
         mode: 0644
@@ -37,26 +37,26 @@
         - "{{ lookup('env', 'MOLECULE_VERIFIER_TEST_DIRECTORY') }}/test_*.yml"
 
     - name: Register test files
-      shell: "ls {{ goss_test_directory }}/test_*.yml"
+      ansible.builtin.shell: "ls {{ goss_test_directory }}/test_*.yml"
       changed_when: false
       register: test_files
 
     - name: Execute Goss tests
       environment:
-        # yamllint disable-line rule:line-length
+        # yamllint disable rule:line-length
         PATH: '/opt/rh/rh-git218/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-      command: "{{ goss_dst }} -g {{ item }} validate -f {{ goss_format }}"
+      ansible.builtin.command: "{{ goss_dst }} -g {{ item }} validate -f {{ goss_format }}"
       changed_when: false
       register: test_results
       with_items: "{{ test_files.stdout_lines }}"
 
     - name: Display details about the Goss results
-      debug:
+      ansible.builtin.debug:
         msg: "{{ item.stdout_lines }}"
       with_items: "{{ test_results.results }}"
 
     - name: Fail when tests fail
-      fail:
+      ansible.builtin.fail:
         msg: "Goss failed to validate"
       when: item.rc != 0
       with_items: "{{ test_results.results }}"
